@@ -103,9 +103,10 @@
             });
 
             $.ajax({
-                url: 'https://api.spotify.com/v1/me',
+                url: 'https://a.wunderlist.com/api/v1/user',
                 headers: {
-                  'Authorization': 'Bearer ' + access_token
+                  'X-Access-Token': + access_token,
+                  'X-Client-ID': client_id
                 },
                 success: function(response) {
                   userProfilePlaceholder.innerHTML = userProfileTemplate(response);
