@@ -108,7 +108,7 @@ app.get('/callback', function(req, res) {
           querystring.stringify({
             access_token: access_token,
             client_id: authOptions.form.client_id,
-            refresh_token: refresh_toke
+            refresh_token: refresh_token
           }));
 
 
