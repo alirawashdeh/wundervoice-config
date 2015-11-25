@@ -91,8 +91,10 @@ app.get('/callback', function(req, res) {
             refresh_token = body.refresh_token;
 
         var options = {
-          url: 'https://api.spotify.com/v1/me',
-          headers: { 'Authorization': 'Bearer ' + access_token },
+          url: 'https://a.wunderlist.com/v1/me',
+          headers: { 'X-Access-Token': + access_token,
+          'X-Client-ID': client_id
+        },
           json: true
         };
 
