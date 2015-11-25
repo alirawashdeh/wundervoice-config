@@ -107,7 +107,7 @@
                 url: 'https://a.wunderlist.com/api/v1/user',
                 headers: {
                   'X-Access-Token': + access_token,
-                  'X-Client-ID': client_id
+                  'X-Client-ID': + client_id
                 },
                 success: function(response) {
                   userProfilePlaceholder.innerHTML = userProfileTemplate(response);
