@@ -92,7 +92,8 @@ app.get('/callback', function(req, res) {
 
         var options = {
           url: 'https://a.wunderlist.com/v1/me',
-          headers: { 'X-Access-Token': + access_token,
+          headers: {
+          'X-Access-Token': + access_token,
           'X-Client-ID': authOptions.form.client_id
         },
           json: true
