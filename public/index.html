@@ -77,7 +77,8 @@
               'client_id': params.client_id
             };
 
-            var return_to = 'pebblejs://close#';
+            //var return_to = 'pebblejs://close#';
+            return_to = 'http://localhost:57141/close?';
             document.location = return_to + encodeURIComponent(JSON.stringify(config));
         })
       }
