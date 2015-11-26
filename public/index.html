@@ -77,7 +77,7 @@
               'client_id': params.client_id
             };
 
-            var return_to = getQueryParam('return_to', 'pebblejs://close#');
+            var return_to = 'pebblejs://close#';
             document.location = return_to + encodeURIComponent(JSON.stringify(config));
         })
       }
