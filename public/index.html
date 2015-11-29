@@ -102,9 +102,10 @@
                     }
                     );
                     $(data).each(function(index, item) {
-                      $('#list').append(
-                          $(document.createElement('li')).text(item.title).value(item.id)
-                      );
+                      var li = document.createElement('li');
+                      li.text = item.title;
+                      li.value = item.id;
+                      $('#list').append(li);
                   });
 
           				if( typeof callback !== "undefined" ) callback();
