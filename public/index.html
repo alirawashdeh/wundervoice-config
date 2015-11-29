@@ -103,7 +103,7 @@
                     );
                     $(data).each(function(index, item) {
                       var li = document.createElement('li');
-                      li.text = item.title;
+                      li.text(item.title);
                       li.value = item.id;
                       $('#list').append(li);
                   });
