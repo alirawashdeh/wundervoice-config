@@ -64,6 +64,33 @@
             $('#login').hide();
             $('#loggedin').show();
 
+            var header        = { "X-Access-Token": access_token, "X-Client-ID": client_id, contentType: "application/json;" };
+            ajax(
+          		{
+          			url:     "https://a.wunderlist.com/api/v1/lists",
+          			type:    "json",
+          			method:  "get",
+          			headers: header,
+          			cache:   false
+          		},
+          		function( data )
+          		{
+          			try
+          			{
+          				//displayTasks( id, list, data );
+              			console.log( "Success getting lists " + JSON.stringify( data ) );
+          				if( typeof callback !== "undefined" ) callback();
+          			}
+          			catch( err )
+          			{
+          				reportError( "Getting Tasks: " + err.message );
+          			}
+          		},
+          		function( err )
+          		{
+          			console.log( "Getting Tasks Failed: " + JSON.stringify( err ) );
+          		});
+
           } else {
               // render initial screen
               $('#login').show();
