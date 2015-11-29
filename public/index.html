@@ -3,7 +3,6 @@
   <head>
     <title>Authenticate with Wunderlist</title>
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
-    <link href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
       <style type="text/css">
       #login, #loggedin {
         display: none;
@@ -104,7 +103,7 @@
                     );
                     $(data).each(function(index, item) {
                       $('#list').append(
-                          $(document.createElement('li')).text(item.title)
+                          $(document.createElement('li')).text(item.title).value(item.id)
                       );
                   });
 
