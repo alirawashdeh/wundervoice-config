@@ -79,6 +79,13 @@
           			{
           				//displayTasks( id, list, data );
               			console.log( "Success getting lists " + JSON.stringify( data ) );
+
+                    $(json.items).each(function(index, item) {
+                      ul.append(
+                          $(document.createElement('li')).text(item)
+                      );
+                  });
+
           				if( typeof callback !== "undefined" ) callback();
           			}
           			catch( err )
