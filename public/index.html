@@ -74,7 +74,7 @@
           			headers: header,
           			cache:   false
           		},
-          		function( data )
+          		success: function( data )
           		{
           			try
           			{
@@ -94,7 +94,7 @@
           				reportError( "Getting Tasks: " + err.message );
           			}
           		},
-          		function( err )
+          		error: function( err )
           		{
           			console.log( "Getting Tasks Failed: " + JSON.stringify( err ) );
           		});
