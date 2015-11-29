@@ -68,7 +68,8 @@
             $.ajax(
           		{
           			url:     "https://a.wunderlist.com/api/v1/lists",
-          			type:    "json",
+          			dataType:    "json",
+                contentType: "application/json",
           			method:  "get",
           			headers: header,
           			cache:   false
