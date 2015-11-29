@@ -80,10 +80,8 @@
           				//displayTasks( id, list, data );
               			console.log( "Success getting lists " + JSON.stringify( data ) );
 
-                    var ul = document.getElementById('list');
-
                     $(data).each(function(index, item) {
-                      ul.appendChild(
+                      $('#list').append(
                           $(document.createElement('li')).text(item)
                       );
                   });
