@@ -35,6 +35,7 @@
     </div>
 
     <script src="https://code.jquery.com/jquery-1.10.1.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
     <script>
       (function() {
 
@@ -82,7 +83,18 @@
           				//displayTasks( id, list, data );
               			console.log( "Success getting lists " + JSON.stringify( data ) );
 
-                    $( "#list" ).selectable();
+                    $( "#list" ).selectable(
+
+                      {
+                        selected: function() {
+                  var result = $( "#result" ).empty();
+                  $( ".ui-selected", this ).each(function() {
+                     var index = $( "#selectable-7 li" ).index( this );
+                     result.append( " #" + ( index + 1 ) );
+                  });
+                      }
+                    }
+                    );
                     $(data).each(function(index, item) {
                       $('#list').append(
                           $(document.createElement('li')).text(item.title)
