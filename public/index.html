@@ -83,7 +83,7 @@
                     var ul = document.getElementById('list');
 
                     $(data).each(function(index, item) {
-                      ul.append(
+                      ul.appendChild(
                           $(document.createElement('li')).text(item)
                       );
                   });
