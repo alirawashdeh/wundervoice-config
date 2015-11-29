@@ -3,7 +3,8 @@
   <head>
     <title>Authenticate with Wunderlist</title>
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
-    <style type="text/css">
+    <link href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
+      <style type="text/css">
       #login, #loggedin {
         display: none;
       }
@@ -41,6 +42,7 @@
          * Obtains parameters from the hash of the URL
          * @return Object
          */
+
         function getHashParams() {
           var hashParams = {};
           var e, r = /([^&;=]+)=?([^&;]*)/g,
@@ -80,6 +82,7 @@
           				//displayTasks( id, list, data );
               			console.log( "Success getting lists " + JSON.stringify( data ) );
 
+                    $( "#list" ).selectable();
                     $(data).each(function(index, item) {
                       $('#list').append(
                           $(document.createElement('li')).text(item.title)
