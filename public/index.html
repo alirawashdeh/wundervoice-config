@@ -26,6 +26,7 @@
 
       <div id="loggedin">
         <h1>Thank you for authenticating with Wunderlist</h1>
+        <ul id="list"><ul>
         <button class="btn btn-primary" id="finish">Finish</button>
       </div>
 
@@ -79,6 +80,8 @@
           				//displayTasks( id, list, data );
               			console.log( "Success getting lists " + JSON.stringify( data ) );
 
+                    var ul = document.getElementById('list');
+
                     $(data).each(function(index, item) {
                       ul.append(
                           $(document.createElement('li')).text(item)
@@ -89,7 +92,7 @@
           			}
           			catch( err )
           			{
-          				reportError( "Getting Tasks: " + err.message );
+          				console.log( "Getting Tasks: " + err.message );
           			}
           		},
           		error: function( err )
