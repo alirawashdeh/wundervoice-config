@@ -89,18 +89,7 @@
           				//displayTasks( id, list, data );
               			console.log( "Success getting lists " + JSON.stringify( data ) );
 
-                    $( "#list" ).selectable(
-
-                      {
-                        selected: function() {
-                            var result = $( "#result" ).empty();
-                              $( ".ui-selected", this ).each(function() {
-                                  var index = $( "#selectable-7 li" ).index( this );
-                                    result.append( " #" + ( index + 1 ) );
-                                });
-                      }
-                    }
-                    );
+                    $( "#list" ).selectable();
                     $(data).each(function(index, item) {
                       var li = document.createElement('li');
                       li.innerHTML = item.title;
@@ -140,9 +129,13 @@
 
           document.getElementById('finish').addEventListener('click', function() {
 
+            var list_id = $( ".ui-selected").attr('value');
+            var list_name = $( ".ui-selected").html();
             var config = {
               'access_token': params.access_token,
-              'client_id': params.client_id
+              'client_id': params.client_id,
+              'list_id' : list_id,
+              'list_name' : list_name
             };
 
             var return_to = getQueryParam('return_to', 'pebblejs://close#');
