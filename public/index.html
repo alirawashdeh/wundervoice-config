@@ -101,8 +101,11 @@
                     $("finish").enabled = true;
                   }
                 }
-              
+
                 $( "#list" ).selectable(selectableObj);
+
+                  $("finish").enabled = false;
+
                 $(data).each(function(index, item) {
                   var li = document.createElement('li');
                   li.innerHTML = item.title;
