@@ -98,13 +98,13 @@
 
                 var selectableObj = {
                   selected: function(e, ui) {
-                    $("finish").enabled = true;
+                    document.getElementById('finish').enabled = true;
                   }
                 }
 
                 $( "#list" ).selectable(selectableObj);
 
-                  $("finish").enabled = false;
+                  document.getElementById('finish').enabled = false;
 
                 $(data).each(function(index, item) {
                   var li = document.createElement('li');
