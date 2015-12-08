@@ -1,7 +1,7 @@
 {
   "author": "alirawashdeh",
-  "name": "wunderdictate-oauth",
-  "description": "Authentication server for the WunderDictate Pebble smartwatch app",
+  "name": "wundervoice-oauth",
+  "description": "Authentication server for the WunderVoice Pebble smartwatch app",
   "version": "0.0.1",
   "main": "app.js",
   "dependencies": {
