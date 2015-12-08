@@ -1,126 +1,132 @@
 <!doctype html>
 <html>
-  <head>
-    <title>Authenticate with Wunderlist</title>
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-      <style type="text/css">
-      #login, #loggedin {
-        display: none;
-      }
-      .text-overflow {
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        width: 500px;
-      }
+<head>
+  <title>Authenticate with Wunderlist</title>
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <style type="text/css">
+  #login, #loggedin {
+    display: none;
+  }
+  .text-overflow {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 500px;
+  }
 
-        #list .ui-selecting { background: #707070 ; }
-        #list .ui-selected { background: #3750ab; color: #ffffff; }
-
-
-    </style>
-  </head>
-
-  <body>
-    <div class="container">
-
-      <div class="page-header">
-          <h1><small>Configure WunderVoice</small></h1>
-      </div>
+  #list .ui-selecting { background: #707070 ; }
+  #list .ui-selected { background: #3750ab; color: #ffffff; }
 
 
-      <div id="login" class="jumbotron">
-        <h1>Get started</h1>
-        <p>Log in with Wunderlist to enable WunderVoice.</p>
-        <p><a href="/login" class="btn btn-lg btn-success">Log in</a></p>
-      </div>
+  </style>
+</head>
 
-      <div id="loggedin"  class="jumbotron">
-        <h1>Select a list</h1>
-        <p>Thank you for authenticating. Please select a list to use with WunderVoice:</h1></p>
-        <ul id="list" class="list-group"></ul>
+<body>
+  <div class="container">
 
-        <button class="btn btn-lg btn-success" id="finish">Finish</button>
+    <div class="page-header">
+      <h1><small>Configure WunderVoice</small></h1>
+    </div>
 
-      </div>
 
+    <div id="login" class="jumbotron">
+      <h1>Get started</h1>
+      <p>Log in with Wunderlist to enable WunderVoice.</p>
+      <p><a href="/login" class="btn btn-lg btn-success">Log in</a></p>
+    </div>
+
+    <div id="loggedin"  class="jumbotron">
+      <h1>Select a list</h1>
+      <p>Thank you for authenticating. Please select a list to use with WunderVoice:</h1></p>
+      <ul id="list" class="list-group"></ul>
+
+      <button class="btn btn-lg btn-success" id="finish">Finish</button>
 
     </div>
 
-    <script src="https://code.jquery.com/jquery-1.10.1.min.js"></script>
-    <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
-    <script>
-      (function() {
 
-        /**
-         * Obtains parameters from the hash of the URL
-         * @return Object
-         */
+  </div>
 
-        function getHashParams() {
-          var hashParams = {};
-          var e, r = /([^&;=]+)=?([^&;]*)/g,
-              q = window.location.hash.substring(1);
-          while ( e = r.exec(q)) {
-             hashParams[e[1]] = decodeURIComponent(e[2]);
-          }
-          return hashParams;
-        }
+  <script src="https://code.jquery.com/jquery-1.10.1.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+  <script>
+  (function() {
 
-        var params = getHashParams();
+    /**
+    * Obtains parameters from the hash of the URL
+    * @return Object
+    */
 
-        var access_token = params.access_token,
-            refresh_token = params.refresh_token,
-            client_id = params.client_id,
-            error = params.error;
+    function getHashParams() {
+      var hashParams = {};
+      var e, r = /([^&;=]+)=?([^&;]*)/g,
+      q = window.location.hash.substring(1);
+      while ( e = r.exec(q)) {
+        hashParams[e[1]] = decodeURIComponent(e[2]);
+      }
+      return hashParams;
+    }
 
-        if (error) {
-          alert('There was an error during the authentication');
-        } else {
-          if (access_token) {
-            $('#login').hide();
-            $('#loggedin').show();
+    var params = getHashParams();
 
-            var header        = { "X-Access-Token": access_token, "X-Client-ID": client_id };
-            $.ajax(
-          		{
-          			url:     "https://a.wunderlist.com/api/v1/lists",
-          			dataType:    "json",
-                contentType: "application/json",
-          			method:  "get",
-          			headers: header,
-          			cache:   false,
-              success: function (data) {
-          			try
-          			{
-          				//displayTasks( id, list, data );
-              			console.log( "Success getting lists " + JSON.stringify( data ) );
+    var access_token = params.access_token,
+    refresh_token = params.refresh_token,
+    client_id = params.client_id,
+    error = params.error;
 
-                    $( "#list" ).selectable();
-                    $(data).each(function(index, item) {
-                      var li = document.createElement('li');
-                      li.innerHTML = item.title;
-                      li.setAttribute('value',item.id);
-                      li.setAttribute('class','list-group-item')
-                      $('#list').append(li);
-                  });
+    if (error) {
+      alert('There was an error during the authentication');
+    } else {
+      if (access_token) {
+        $('#login').hide();
+        $('#loggedin').show();
 
-          				if( typeof callback !== "undefined" ) callback();
-          			}
-          			catch( err )
-          			{
-          				console.log( "Getting Tasks: " + err.message );
-          			}
-          		},
-          		error: function( err )
-          		{
-          			console.log( "Getting Tasks Failed: " + JSON.stringify( err ) );
-          		}});
+        var header        = { "X-Access-Token": access_token, "X-Client-ID": client_id };
+        $.ajax(
+          {
+            url:     "https://a.wunderlist.com/api/v1/lists",
+            dataType:    "json",
+            contentType: "application/json",
+            method:  "get",
+            headers: header,
+            cache:   false,
+            success: function (data) {
+              try
+              {
+                //displayTasks( id, list, data );
+                console.log( "Success getting lists " + JSON.stringify( data ) );
+
+                var selectableObj = {
+                  selected: function(e, ui) {
+                    $("finish").enabled = true;
+                  }
+                }
+              
+                $( "#list" ).selectable(selectableObj);
+                $(data).each(function(index, item) {
+                  var li = document.createElement('li');
+                  li.innerHTML = item.title;
+                  li.setAttribute('value',item.id);
+                  li.setAttribute('class','list-group-item')
+                  $('#list').append(li);
+                });
+
+                if( typeof callback !== "undefined" ) callback();
+              }
+              catch( err )
+              {
+                console.log( "Getting Tasks: " + err.message );
+              }
+            },
+            error: function( err )
+            {
+              console.log( "Getting Tasks Failed: " + JSON.stringify( err ) );
+            }});
 
           } else {
-              // render initial screen
-              $('#login').show();
-              $('#loggedin').hide();
+            // render initial screen
+            $('#login').show();
+            $('#loggedin').hide();
           }
 
           function getQueryParam(variable, defaultValue) {
@@ -149,8 +155,8 @@
             var return_to = getQueryParam('return_to', 'pebblejs://close#');
             //return_to = decodeURIComponent('http%3A%2F%2Flocalhost%3A57661%2Fclose%3F');
             document.location = return_to + encodeURIComponent(JSON.stringify(config));
-        })
-      }
+          })
+        }
       })();
-    </script>
-</html>
+      </script>
+      </html>
