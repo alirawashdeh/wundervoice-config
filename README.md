@@ -1,38 +1,40 @@
-# node-js-getting-started
+# wundervoice-oauth
 
-A barebones Node.js app using [Express 4](http://expressjs.com/).
+WunderVoice is a Pebble smartwatch app that allows you to quickly add items to a Wunderlist list using speech.
 
-This application supports the [Getting Started with Node on Heroku](https://devcenter.heroku.com/articles/getting-started-with-nodejs) article - check it out.
+This repository contains a node.js app, used by the WunderVoice pebble app to authenticate with Wunderlist using OAuth.
 
-[![Deploy to Heroku](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
-
-## Running Locally
-
-Make sure you have [Node.js](http://nodejs.org/) and the [Heroku Toolbelt](https://toolbelt.heroku.com/) installed.
-
-```sh
-$ git clone git@github.com:heroku/node-js-getting-started.git # or clone your own fork
-$ cd node-js-getting-started
-$ npm install
-$ npm start
-```
+See [wundervoice](https://github.com/alirawashdeh/wundervoice) on github for the source code of the Pebble application itself.
 
 Your app should now be running on [localhost:5000](http://localhost:5000/).
 
-## Deploying to Heroku
 
-```
-$ heroku create
-$ git push heroku master
-$ heroku open
-```
+## Configuration
 
-## Documentation
+Sign up for API keys at [Wunderlist Developer](https://developer.wunderlist.com). Edit the following three lines app.js
 
-For more information about using Node.js on Heroku, see these Dev Center articles:
+Modify the following part of the app.js file to include your client ID and client secret:
 
-- [Getting Started with Node.js on Heroku](https://devcenter.heroku.com/articles/getting-started-with-nodejs)
-- [Heroku Node.js Support](https://devcenter.heroku.com/articles/nodejs-support)
-- [Node.js on Heroku](https://devcenter.heroku.com/categories/nodejs)
-- [Best Practices for Node.js Development](https://devcenter.heroku.com/articles/node-best-practices)
-- [Using WebSockets on Heroku with Node.js](https://devcenter.heroku.com/articles/node-websockets)
+'''
+var client_id = process.env.client_id || '03ffe0cac0a0401aa6673c3cf6d02ced';// Your client id
+var client_secret = process.env.client_secret || 'a57c43efb9644574a96d6623fb8bfbc2'; // Your client secret
+'''
+
+Alternatively, if you're deploying to heroku, you can set the relevant environment variables instead:
+
+'''sh
+$ heroku config:set client_id=03ffe0cac0a0401aa6673c3cf6d02ced
+$ heroku config:set client_secret=a57c43efb9644574a96d6623fb8bfbc2
+'''
+
+Once you have deployed your application, take a note of the URL and update the following part of the app.js file:
+
+'''
+var redirect_uri = process.env.redirect_uri || 'http://localhost:8888/callback'; // Your redirect uri
+'''
+
+Remember, OAuth requires that callback URLs are hosted using SSL, so ensure that you specify an "HTTPS" URL.
+
+# Credits
+
+Thanks to heroku/node-js-getting-started and spotify/web-api-auth-examples for the vast majority of this code.
