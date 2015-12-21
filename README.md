@@ -6,12 +6,10 @@ This repository contains a node.js app, used by the WunderVoice pebble app to au
 
 See [wundervoice](https://github.com/alirawashdeh/wundervoice) on github for the source code of the Pebble application itself.
 
-Your app should now be running on [localhost:5000](http://localhost:5000/).
-
 
 ## Configuration
 
-Sign up for API keys at [Wunderlist Developer](https://developer.wunderlist.com). Edit the following three lines app.js
+Sign up for API keys at [Wunderlist Developer](https://developer.wunderlist.com).
 
 Modify the following part of the app.js file to include your client ID and client secret:
 
@@ -29,7 +27,7 @@ $ heroku config:set client_secret=a57c43efb9644574a96d6623fb8bfbc2
 
 Once you have deployed your application, take a note of the URL and update the following part of the app.js file:
 
-'''```
+```
 var redirect_uri = process.env.redirect_uri || 'http://localhost:8888/callback'; // Your redirect uri
 ```
 
