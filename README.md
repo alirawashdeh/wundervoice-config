@@ -1,4 +1,4 @@
-# wundervoice-config
+# WunderVoice Config
 
 WunderVoice is a Pebble smartwatch app that allows you to quickly add items to a Wunderlist list using speech.
 
