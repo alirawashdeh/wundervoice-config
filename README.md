@@ -33,6 +33,8 @@ var redirect_uri = process.env.redirect_uri || 'http://localhost:8888/callback';
 
 Remember, OAuth requires that callback URLs are hosted using SSL, so ensure that you specify an "HTTPS" URL.
 
+Make sure you then configure the same callback URL against your application at [Wunderlist Developer](https://developer.wunderlist.com).
+
 # Credits
 
 Thanks to heroku/node-js-getting-started and spotify/web-api-auth-examples for the vast majority of this code.
