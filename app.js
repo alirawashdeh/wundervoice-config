@@ -44,6 +44,10 @@ app.get('/login', function(req, res) {
     }));
 });
 
+app.get('/authredirect', function(req, res) {
+
+});
+
 app.get('/callback', function(req, res) {
 
   // your application requests refresh and access tokens
