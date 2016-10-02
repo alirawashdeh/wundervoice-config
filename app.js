@@ -22,25 +22,27 @@ var generateRandomString = function(length) {
   return text;
 };
 
-var stateKey = 'wunderlist_auth_state';
+var cookieKey = 'callypebble_return_to';
 
 var app = express();
 
 app.set('port', (process.env.PORT || 5000));
 
 app.use(express.static(__dirname + '/public'))
-   .use(cookieParser());
+   .use(cookieParser(client_secret));
 
 app.get('/login', function(req, res) {
 
-  var state = generateRandomString(16);
-  res.cookie(stateKey, state);
+  if(req.query.return_to != null)
+  {
+  res.cookie(cookieKey, req.query.return_to);
+  console.log('sending cookie');
+  }
 
   res.redirect('https://www.wunderlist.com/oauth/authorize?' +
     querystring.stringify({
       client_id: client_id,
-      redirect_uri: redirect_uri,
-      state: state
+      redirect_uri: redirect_uri
     }));
 });
 
@@ -51,7 +53,6 @@ app.get('/callback', function(req, res) {
 
   var code = req.query.code || null;
   var state = req.query.state || null;
-  var storedState = req.cookies ? req.cookies[stateKey] : null;
 
   if (state === null || state !== storedState) {
     res.redirect('/#' +
@@ -96,13 +97,28 @@ app.get('/callback', function(req, res) {
         });
 
         // we can also pass the token to the browser to make requests from there
+        var returntoval = req.cookies ? req.cookies[cookieKey] : null;
+
+        res.clearCookie(cookieKey);
+        if(returntoval != null){
+
         res.redirect('/#' +
           querystring.stringify({
             access_token: access_token,
             client_id: authOptions.form.client_id,
-            refresh_token: refresh_token
+            refresh_token: refresh_token,
+              return_to: returntoval
           }));
-
+        }
+        else {
+          console.log('returnto NOT found');
+          res.redirect('/#' +
+            querystring.stringify({
+              access_token: access_token,
+              client_id: authOptions.form.client_id,
+              refresh_token: refresh_token
+            }));
+        }
 
       } else {
         res.redirect('/#' +
