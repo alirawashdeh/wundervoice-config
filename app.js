@@ -38,7 +38,6 @@ app.get('/login', function(req, res) {
   res.cookie(stateKey, state);
 
   if(req.query.return_to != null)
-  if(req.query.return_to != null)
   {
   res.cookie(returnToKey, req.query.return_to);
   }
