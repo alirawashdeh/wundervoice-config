@@ -58,6 +58,9 @@ app.get('/callback', function(req, res) {
   var code = req.query.code || null;
   var state = req.query.state || null;
   var storedState = req.cookies ? req.cookies[stateKey] : null;
+  var returntoval = req.cookies ? req.cookies[returnToKey] : null;
+
+
 
   if (state === null || state !== storedState) {
     res.redirect('/#' +
@@ -87,24 +90,23 @@ app.get('/callback', function(req, res) {
         var access_token = body.access_token,
             refresh_token = body.refresh_token;
 
-        var options = {
-          url: 'https://a.wunderlist.com/v1/me',
-          headers: {
-          'X-Access-Token': + access_token,
-          'X-Client-ID': authOptions.form.client_id
-        },
-          json: true
-        };
+        // var options = {
+        //   url: 'https://a.wunderlist.com/v1/me',
+        //   headers: {
+        //   'X-Access-Token': + access_token,
+        //   'X-Client-ID': authOptions.form.client_id
+        // },
+        //   json: true
+        // };
+        //
+        // // use the access token to access the Wunderlist Web API
+        // request.get(options, function(error, response, body) {
+        //   console.log(body);
+        // });
 
-        // use the access token to access the Wunderlist Web API
-        request.get(options, function(error, response, body) {
-          console.log(body);
-        });
-
-        var returntoval = req.cookies ? req.cookies[returnToKey] : null;
-        res.clearCookie(returnToKey);
 
         if(returntoval != null){
+            res.clearCookie(returnToKey);
         // we can also pass the token to the browser to make requests from there
         res.redirect('/#' +
           querystring.stringify({
