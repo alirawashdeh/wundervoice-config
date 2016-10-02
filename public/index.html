@@ -165,8 +165,7 @@
             // var return_to = getQueryParam('return_to', false);
             if(params.return_to != 'false')
             {
-              // return_to = params.return_to;
-              document.location = params.return_to + $.param(config);
+              document.location = params.return_to + encodeURIComponent(JSON.stringify(config));
             }
             else
             {
