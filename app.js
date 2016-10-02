@@ -23,18 +23,25 @@ var generateRandomString = function(length) {
 };
 
 var stateKey = 'wunderlist_auth_state';
+var returnToKey = 'wundervoice_return_to';
 
 var app = express();
 
 app.set('port', (process.env.PORT || 5000));
 
 app.use(express.static(__dirname + '/public'))
-   .use(cookieParser());
+   .use(cookieParser(client_secret));
 
 app.get('/login', function(req, res) {
 
   var state = generateRandomString(16);
   res.cookie(stateKey, state);
+
+  if(req.query.return_to != null)
+  if(req.query.return_to != null)
+  {
+  res.cookie(returnToKey, req.query.return_to);
+  }
 
   res.redirect('https://www.wunderlist.com/oauth/authorize?' +
     querystring.stringify({
@@ -95,13 +102,26 @@ app.get('/callback', function(req, res) {
           console.log(body);
         });
 
+        var returntoval = req.cookies ? req.cookies[returnToKey] : null;
+        res.clearCookie(returnToKey);
+
+        if(returntoval != null){
         // we can also pass the token to the browser to make requests from there
         res.redirect('/#' +
           querystring.stringify({
             access_token: access_token,
             client_id: authOptions.form.client_id,
-            refresh_token: refresh_token
+            refresh_token: refresh_token,
+              return_to: returntoval
           }));
+        }else {
+          res.redirect('/#' +
+            querystring.stringify({
+              access_token: access_token,
+              client_id: authOptions.form.client_id,
+              refresh_token: refresh_token
+            }));
+        }
 
 
       } else {
