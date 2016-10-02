@@ -39,7 +39,6 @@ app.get('/login', function(req, res) {
 
   if(req.query.return_to != null)
   {
-  console.log("return_to found");
   res.cookie(returnToKey, req.query.return_to);
   }
 
@@ -60,7 +59,6 @@ app.get('/callback', function(req, res) {
   var state = req.query.state || null;
   var storedState = req.cookies ? req.cookies[stateKey] : null;
   var returntoval = req.cookies ? req.cookies[returnToKey] : null;
-  console.log('return to value ' + returntoval);
 
   if (state === null || state !== storedState) {
     res.redirect('/#' +
